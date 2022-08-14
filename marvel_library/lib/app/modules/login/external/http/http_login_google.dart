@@ -15,7 +15,6 @@ class HttpLoginGoogle implements LoginGoogleDatasource {
         try {
           _currentUser = await _googleSignIn.signIn();
         } catch (error) {
-          print(error);
           throw LoginGoogleException(error.toString());
         }
       }

@@ -11,10 +11,10 @@ class AppModule extends Module {
     ModuleRoute('/home/',
         module: HomeModule(),
         transition: TransitionType.fadeIn,
-        duration: Duration(milliseconds: 500)),
+        duration: Duration(milliseconds: 1000)),
     ModuleRoute('/',
         module: LoginModule(),
         transition: TransitionType.fadeIn,
-        duration: Duration(milliseconds: 500)),
+        duration: Duration(milliseconds: 1000)),
   ];
 }

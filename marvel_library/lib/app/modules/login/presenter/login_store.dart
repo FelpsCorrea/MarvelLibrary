@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:marvel_library/app/constants/config_constants.dart';
 import 'package:marvel_library/app/modules/login/domain/usecases/login_google_usecase.dart';
@@ -29,8 +30,8 @@ abstract class _LoginStoreBase with Store {
 
   @action
   setGoogleUser(GoogleSignInAccount user) {
-    print("Entrou no set user");
     googleUser = user;
+    Modular.to.navigate('/home/');
   }
 
   genericDialog(String message) {
