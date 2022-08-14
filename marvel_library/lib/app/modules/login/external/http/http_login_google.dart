@@ -6,28 +6,21 @@ import 'package:marvel_library/app/modules/login/infra/datasources/login_google_
 class HttpLoginGoogle implements LoginGoogleDatasource {
   @override
   Future<GoogleSignInAccount> loginGoogle() async {
-    GoogleSignIn _googleSignIn = GoogleSignIn(
-      clientId: ConfigConstants.googleClientId,
-      scopes: <String>[
-        'email',
-        'https://www.googleapis.com/auth/contacts.readonly',
-      ],
-    );
+    GoogleSignIn _googleSignIn = ConfigConstants.googleSignIn;
 
     try {
       GoogleSignInAccount? _currentUser = await _googleSignIn.signInSilently();
 
       if (_currentUser == null) {
-        _googleSignIn.onCurrentUserChanged
-            .listen((GoogleSignInAccount? account) {
-          if (account != null) {
-            _currentUser = account;
-          }
-        });
+        try {
+          _currentUser = await _googleSignIn.signIn();
+        } catch (error) {
+          print(error);
+          throw LoginGoogleException(error.toString());
+        }
       }
-
       if (_currentUser != null) {
-        return _currentUser!;
+        return _currentUser;
       } else {
         throw LoginGoogleException("Erro ao efetuar o login");
       }
