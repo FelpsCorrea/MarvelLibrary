@@ -27,6 +27,8 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  flutter_localizations:
+    sdk: flutter
   flutter:
     sdk: flutter
 
@@ -37,6 +39,13 @@ dependencies:
   flutter_modular: ^5.0.3
   mobx: ^2.0.7+5
   flutter_mobx: ^2.0.6+1
+  google_sign_in: ^5.4.1
+  http: ^0.13.5
+  dartz: ^0.10.1
+  asuka: ^2.0.1
+  flutter_phoenix: ^1.0.0
+  feather_icons: ^1.2.0
+  google_fonts: ^3.0.1
 
 dev_dependencies:
   flutter_test:
@@ -49,7 +58,8 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
   mobx_codegen: ^2.0.7
-  flutter_modular_test: ^1.0.4
+  modular_test: ^2.0.0
+  build_runner: ^2.1.7
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -92,3 +102,14 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+scripts: 
+  mobx_build: $runner build
+  mobx_watch: $clean & $get & $runner watch
+  mobx_build_clean: $clean & $get & $runner build --delete-conflicting-outputs
+  mobx_watch_build_clean: $clean & $get & $runner watch --delete-conflicting-outputs 
+
+vars: 
+  clean: flutter clean 
+  get: flutter pub get  
+  runner: flutter pub run build_runner

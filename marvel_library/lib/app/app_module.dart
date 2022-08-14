@@ -1,6 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
-
-import 'modules/home/home_module.dart';
+import 'package:marvel_library/app/modules/home/home_module.dart';
+import 'package:marvel_library/app/modules/login/login_module.dart';
 
 class AppModule extends Module {
   @override
@@ -8,7 +8,13 @@ class AppModule extends Module {
 
   @override
   final List<ModularRoute> routes = [
-    ModuleRoute(Modular.initialRoute, module: HomeModule()),
+    ModuleRoute('/home/',
+        module: HomeModule(),
+        transition: TransitionType.fadeIn,
+        duration: Duration(milliseconds: 500)),
+    ModuleRoute('/',
+        module: LoginModule(),
+        transition: TransitionType.fadeIn,
+        duration: Duration(milliseconds: 500)),
   ];
-
 }
