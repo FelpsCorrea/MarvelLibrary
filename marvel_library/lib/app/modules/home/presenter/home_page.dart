@@ -2,6 +2,7 @@ import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:marvel_library/app/modules/home/domain/repositories/get_characters_repository.dart';
 import 'package:marvel_library/app/modules/home/presenter/home_store.dart';
 import 'package:marvel_library/app/themes/marvel_theme.dart';
 
@@ -18,6 +19,7 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
   void initState() {
     store.loginGoogle();
     store.setRouteByIndexBottomNav();
+    store.getCharactersUsecase(ParamsGetCharacters());
     super.initState();
   }
 

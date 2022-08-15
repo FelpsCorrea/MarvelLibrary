@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:marvel_library/app/constants/config_constants.dart';
+import 'package:marvel_library/app/modules/home/domain/usecases/get_characters_usecase.dart';
 import 'package:marvel_library/app/modules/login/domain/usecases/login_google_usecase.dart';
 import 'package:mobx/mobx.dart';
 import 'package:asuka/asuka.dart' as asuka;
@@ -11,7 +12,8 @@ class HomeStore = HomeStoreBase with _$HomeStore;
 
 abstract class HomeStoreBase with Store {
   final ILoginGoogleUsecase loginGoogleUsecase;
-  HomeStoreBase(this.loginGoogleUsecase);
+  final IGetCharactersUsecase getCharactersUsecase;
+  HomeStoreBase(this.loginGoogleUsecase, this.getCharactersUsecase);
 
   @observable
   GoogleSignInAccount? googleUser;
@@ -44,7 +46,6 @@ abstract class HomeStoreBase with Store {
   }
 
   setRouteByIndexBottomNav() {
-    print(googleUser);
     if (indexBottomNav == 0) {
       changeShowBottomNav();
       Modular.to.navigate('/home/start/');

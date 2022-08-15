@@ -30,10 +30,7 @@ class _LargeLoginPageState extends State<LargeLoginPage> {
           }),
           SizedBox(height: 40),
           TextButton(
-              onPressed: () {
-                print("AAAAAAAAAAAAAAAAAAAAA");
-                print(store.googleUser);
-              },
+              onPressed: () {},
               child: Icon(
                 FeatherIcons.airplay,
                 color: Colors.black,
@@ -42,8 +39,6 @@ class _LargeLoginPageState extends State<LargeLoginPage> {
           TextButton(
               onPressed: () {
                 store.logoutGoogle();
-                print("BBBBBBBBBBBBBBB");
-                print(store.googleUser);
               },
               child: Icon(
                 FeatherIcons.play,
