@@ -10,7 +10,6 @@ class GetComicsRepositoryImpl implements GetComicsRepository {
   @override
   Future<Either<GetComicsException, ResponseGetComics>> getComics(
       ParamsGetComics params) async {
-    return Right(await datasource.getComics(params));
     try {
       return Right(await datasource.getComics(params));
     } on GetComicsException catch (e) {
