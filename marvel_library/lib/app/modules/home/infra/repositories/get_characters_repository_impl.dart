@@ -10,7 +10,6 @@ class GetCharactersRepositoryImpl implements GetCharactersRepository {
   @override
   Future<Either<GetCharactersException, ResponseGetCharacters>> getCharacters(
       ParamsGetCharacters params) async {
-    return Right(await datasource.getCharacters(params));
     try {
       return Right(await datasource.getCharacters(params));
     } on GetCharactersException catch (e) {

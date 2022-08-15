@@ -1,8 +1,8 @@
-class SerieSummary {
-  String resourceURI;
+class Serie {
+  int id;
   String name;
-  SerieSummary({
-    required this.resourceURI,
+  Serie({
+    required this.id,
     required this.name,
   });
 }

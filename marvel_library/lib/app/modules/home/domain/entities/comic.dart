@@ -9,7 +9,7 @@ class Comic {
   String? description;
   String? isbn;
   int? pageCount;
-  SerieSummary? serieSummary;
+  Serie? serie;
   List<Character>? characterList;
   List<MarvelImage>? gallery;
   bool favorited;
@@ -21,7 +21,7 @@ class Comic {
       this.description,
       this.isbn,
       this.pageCount,
-      this.serieSummary,
+      this.serie,
       this.characterList,
       this.gallery,
       this.favorited = false,

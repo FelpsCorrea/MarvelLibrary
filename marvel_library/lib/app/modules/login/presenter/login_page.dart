@@ -1,11 +1,8 @@
-import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:marvel_library/app/modules/login/presenter/large/large_login_page.dart';
 import 'package:marvel_library/app/modules/login/presenter/login_store.dart';
 import 'package:marvel_library/app/modules/login/presenter/small/small_login_page.dart';
+import 'package:marvel_library/app/utils/tutorial_widget.dart';
 
 class LoginPage extends StatefulWidget {
   final String title;
@@ -24,7 +21,7 @@ class _LoginPageState extends State<LoginPage> {
       if (constraints.maxWidth < 1080) {
         return SmallLoginPage();
       } else {
-        return LargeLoginPage();
+        return TutorialWidget();
       }
     });
   }
