@@ -22,7 +22,7 @@ class HttpGetComics implements GetComicsDatasource {
             charactersList += ",";
           }
         }
-        url += "&characters=${charactersList}";
+        url += "&characters=$charactersList";
       }
       if (params.creators != null) {
         String creatorsList = "";
@@ -32,7 +32,7 @@ class HttpGetComics implements GetComicsDatasource {
             creatorsList += ",";
           }
         }
-        url += "&creators=${creatorsList}";
+        url += "&creators=$creatorsList";
       }
       if (params.title != null) {
         url += "&title=${params.title}";

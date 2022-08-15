@@ -23,7 +23,7 @@ class HttpGetCharacters implements GetCharactersDatasource {
             comicsList += ",";
           }
         }
-        url += "&comics=${comicsList}";
+        url += "&comics=$comicsList";
       }
       if (params.name != null) {
         url += "&name=${params.name}";
