@@ -1,5 +1,5 @@
-import 'package:marvel_library/app/modules/home/submodules/search/search_Page.dart';
-import 'package:marvel_library/app/modules/home/submodules/search/search_store.dart';
+import 'package:marvel_library/app/modules/home/submodules/search/presenter/search_page.dart';
+import 'package:marvel_library/app/modules/home/submodules/search/presenter/search_store.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class SearchModule extends Module {

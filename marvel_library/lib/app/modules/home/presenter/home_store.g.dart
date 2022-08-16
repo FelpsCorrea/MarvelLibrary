@@ -88,11 +88,11 @@ mixin _$HomeStore on HomeStoreBase, Store {
   }
 
   @override
-  dynamic setIndexBottomNav(int value) {
+  dynamic setIndexBottomNav(int value, {bool setRoute = false}) {
     final _$actionInfo = _$HomeStoreBaseActionController.startAction(
         name: 'HomeStoreBase.setIndexBottomNav');
     try {
-      return super.setIndexBottomNav(value);
+      return super.setIndexBottomNav(value, setRoute: setRoute);
     } finally {
       _$HomeStoreBaseActionController.endAction(_$actionInfo);
     }

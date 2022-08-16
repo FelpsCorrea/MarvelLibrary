@@ -1,6 +1,6 @@
-import 'package:marvel_library/app/modules/home/submodules/profile/profile_Page.dart';
-import 'package:marvel_library/app/modules/home/submodules/profile/profile_store.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:marvel_library/app/modules/home/submodules/profile/presenter/profile_page.dart';
+import 'package:marvel_library/app/modules/home/submodules/profile/presenter/profile_store.dart';
 
 class ProfileModule extends Module {
   @override

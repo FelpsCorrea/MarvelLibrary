@@ -6,10 +6,12 @@ class SearchStore = _SearchStoreBase with _$SearchStore;
 abstract class _SearchStoreBase with Store {
 
   @observable
-  int value = 0;
+  bool searchTextFieldIsSelected = false;
 
   @action
-  void increment() {
-    value++;
-  } 
+  changeSearchTextFieldIsSelected(){
+    searchTextFieldIsSelected = !searchTextFieldIsSelected;
+  }
+
+  
 }

@@ -40,21 +40,44 @@ abstract class HomeStoreBase with Store {
   int indexBottomNav = 0;
 
   @action
-  setIndexBottomNav(int value) {
+  setIndexBottomNav(int value, {bool setRoute=false}) {
     indexBottomNav = value;
-    setRouteByIndexBottomNav();
+
+    if(setRoute){
+      setRouteByBottomNav();
+    }
   }
 
-  setRouteByIndexBottomNav() {
+  setIndexByBottomNavRoute(){
+    String uri = Modular.args.uri.path;
+
+    if(uri=="/home/"){
+      setIndexBottomNav(0, setRoute: true);
+    }
+
+    if(uri.contains('search')){
+      setIndexBottomNav(1);
+    }
+    else if(uri.contains('favorites')){
+      setIndexBottomNav(2);
+    }
+    else if(uri.contains('profile')){
+      setIndexBottomNav(3);
+    }
+    else{
+      setIndexBottomNav(0);
+    }
+  }
+
+  setRouteByBottomNav() {
     if (indexBottomNav == 0) {
-      changeShowBottomNav();
       Modular.to.navigate('/home/start/');
     } else if (indexBottomNav == 1) {
       Modular.to.navigate('/home/search/');
     } else if (indexBottomNav == 2) {
       Modular.to.navigate('/home/favorites/');
     } else {
-      logoutDialog();
+      Modular.to.navigate('/home/profile/');
     }
   }
 

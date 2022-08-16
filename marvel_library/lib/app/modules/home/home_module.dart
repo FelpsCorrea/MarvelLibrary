@@ -3,6 +3,7 @@ import 'package:marvel_library/app/modules/home/domain/usecases/get_characters_u
 import 'package:marvel_library/app/modules/home/external/http/http_get_characters.dart';
 import 'package:marvel_library/app/modules/home/infra/repositories/get_characters_repository_impl.dart';
 import 'package:marvel_library/app/modules/home/submodules/favorites/favorites_module.dart';
+import 'package:marvel_library/app/modules/home/submodules/profile/profile_module.dart';
 import 'package:marvel_library/app/modules/home/submodules/search/search_module.dart';
 import 'package:marvel_library/app/modules/home/submodules/start/start_module.dart';
 import 'package:marvel_library/app/modules/login/domain/usecases/login_google_usecase.dart';
@@ -43,6 +44,10 @@ class HomeModule extends Module {
           duration: Duration(milliseconds: 500)),
       ModuleRoute('/favorites/',
           module: FavoritesModule(),
+          transition: TransitionType.downToUp,
+          duration: Duration(milliseconds: 500)),
+      ModuleRoute('/profile/',
+          module: ProfileModule(),
           transition: TransitionType.downToUp,
           duration: Duration(milliseconds: 500))
     ]),
