@@ -9,6 +9,7 @@ class GetComicsMapper {
   static ResponseGetComics getResponseFromMap(Map object) {
     return ResponseGetComics(
         total: object['total'],
+        offset: object['offset'],
         comics: getComicsFromResultList(object['results']));
   }
 

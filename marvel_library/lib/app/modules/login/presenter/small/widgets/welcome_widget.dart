@@ -11,12 +11,6 @@ class WelcomeWidget extends StatefulWidget {
 class WelcomeWidgetState extends State<WelcomeWidget> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Image.asset('assets/images/marvel_logo_legenda.png', scale: 2.5)
-      ],
-    );
+    return Image.asset('assets/images/marvel_logo_legenda.png', scale: 2.5);
   }
 }

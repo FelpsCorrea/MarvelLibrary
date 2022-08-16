@@ -10,6 +10,7 @@ abstract class GetCharactersRepository {
 class ParamsGetCharacters {
   String? name;
   String? nameStartsWith;
+  int? characterId;
   List<int>? comics; //IDS Separados por vírgula
   String? orderBy; //name, modified, -name, -modified
   int limit;
@@ -17,6 +18,7 @@ class ParamsGetCharacters {
   ParamsGetCharacters(
       {this.name,
       this.nameStartsWith,
+      this.characterId,
       this.comics,
       this.orderBy,
       this.limit = 10,
@@ -25,8 +27,10 @@ class ParamsGetCharacters {
 
 class ResponseGetCharacters {
   int total;
+  int offset;
   List<Character> characters;
   ResponseGetCharacters({
+    required this.offset,
     required this.total,
     required this.characters,
   });

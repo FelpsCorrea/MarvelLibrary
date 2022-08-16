@@ -25,4 +25,11 @@ class MarvelTheme {
   static const Color neutralLowLight = Color(0xFF292932);
   static const Color neutralLowMedium = Color(0xFF1C1C24);
   static const Color neutralLowDark = Color(0xFF13131A);
+
+  static const Color lowDarkGray = Color(0xFF444C54);
+  static const Color mediumDarkGray = Color(0xFF343A40);
+  static const Color highDarkGray = Color(0xFF23272b);
+  static const Color superDarkGray = Color(0xFF121517);
+  static const Color ultraDarkGray = Color(0xFF070809);
+  static const Color hyperDarkGray = Color(0xFF020202);
 }

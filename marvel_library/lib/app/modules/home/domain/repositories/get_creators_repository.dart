@@ -10,6 +10,7 @@ abstract class GetCreatorsRepository {
 class ParamsGetCreators {
   String? title;
   String? nameStartsWith;
+  int? creatorId;
   List<int>? comics; //IDS Separados por vírgula
   String? orderBy; //firstName, -firstName
   int limit;
@@ -17,6 +18,7 @@ class ParamsGetCreators {
   ParamsGetCreators(
       {this.title,
       this.nameStartsWith,
+      this.creatorId,
       this.comics,
       this.orderBy,
       this.limit = 10,
@@ -25,8 +27,10 @@ class ParamsGetCreators {
 
 class ResponseGetCreators {
   int total;
+  int offset;
   List<Creator> creators;
   ResponseGetCreators({
+    required this.offset,
     required this.total,
     required this.creators,
   });

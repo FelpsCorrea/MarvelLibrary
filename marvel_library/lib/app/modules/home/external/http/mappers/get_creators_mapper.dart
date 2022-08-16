@@ -8,6 +8,7 @@ class GetCreatorsMapper {
   static ResponseGetCreators getResponseFromMap(Map object) {
     return ResponseGetCreators(
         total: object['total'],
+        offset: object['offset'],
         creators: getCreatorsFromResultList(object['results']));
   }
 
@@ -21,14 +22,14 @@ class GetCreatorsMapper {
                     path: e['thumbnail']['path'],
                     extension: e['thumbnail']['extension'])
                 : null,
-            comicList: getCharactersFromItems(e['comics']['items'])
-          ))
+            comicList: getCharactersFromItems(e['comics']['items'])))
         .toList();
   }
 
   static List<Comic> getCharactersFromItems(List list) {
     return list
-        .map((e) => Comic(id: getIdFromResourceURI(e['resourceURI']), title: e['name']))
+        .map((e) =>
+            Comic(id: getIdFromResourceURI(e['resourceURI']), title: e['name']))
         .toList();
   }
 

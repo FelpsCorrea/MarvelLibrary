@@ -10,10 +10,16 @@ class SearchPage extends StatefulWidget {
   @override
   SearchPageState createState() => SearchPageState();
 }
+
 class SearchPageState extends State<SearchPage> {
   final SearchStore store = Modular.get();
 
   @override
+  void initState() {
+    super.initState();
+    store.searchComics();
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {

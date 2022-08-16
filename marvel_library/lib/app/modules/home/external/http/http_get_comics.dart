@@ -44,15 +44,16 @@ class HttpGetComics implements GetComicsDatasource {
         url += "&orderBy=${params.orderBy}";
       }
 
+      print(url);
+
       var response = await http.get(Uri.parse(url), headers: {
-        'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json'
       }).timeout(Duration(seconds: 60));
       if (response.statusCode == HttpConstants.REQUEST_SUCCESS) {
         return GetComicsMapper.getResponseFromMap(
             jsonDecode(response.body)["data"]);
       } else {
-        throw GetComicsException("Erro ao buscar as HQs");
+        throw GetComicsException(jsonDecode(response.body)["message"]);
       }
     } catch (e) {
       throw GetComicsException(e.toString());

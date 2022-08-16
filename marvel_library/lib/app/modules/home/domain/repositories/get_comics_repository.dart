@@ -10,13 +10,15 @@ abstract class GetComicsRepository {
 class ParamsGetComics {
   String? title;
   String? titleStartsWith;
+  int? comicId;
   List<int>? characters; //IDS Separados por vírgula
   List<int>? creators; //IDS Separados por vírgula
   String? orderBy; //title, -title
   int limit;
   int offset;
   ParamsGetComics(
-      {this.title,
+      {this.comicId,
+      this.title,
       this.titleStartsWith,
       this.characters,
       this.creators,
@@ -27,9 +29,11 @@ class ParamsGetComics {
 
 class ResponseGetComics {
   int total;
+  int offset;
   List<Comic> comics;
   ResponseGetComics({
     required this.total,
+    required this.offset,
     required this.comics,
   });
 }

@@ -36,14 +36,13 @@ class HttpGetCharacters implements GetCharactersDatasource {
       }
 
       var response = await http.get(Uri.parse(url), headers: {
-        'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json'
       }).timeout(Duration(seconds: 60));
       if (response.statusCode == HttpConstants.REQUEST_SUCCESS) {
         return GetCharactersMapper.getResponseFromMap(
             jsonDecode(response.body)["data"]);
       } else {
-        throw GetCharactersException("Erro ao buscar os personagens");
+        throw GetCharactersException(jsonDecode(response.body)["message"]);
       }
     } catch (e) {
       throw GetCharactersException(e.toString());

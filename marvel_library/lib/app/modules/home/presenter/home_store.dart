@@ -40,31 +40,28 @@ abstract class HomeStoreBase with Store {
   int indexBottomNav = 0;
 
   @action
-  setIndexBottomNav(int value, {bool setRoute=false}) {
+  setIndexBottomNav(int value, {bool setRoute = false}) {
     indexBottomNav = value;
 
-    if(setRoute){
+    if (setRoute) {
       setRouteByBottomNav();
     }
   }
 
-  setIndexByBottomNavRoute(){
+  setIndexByBottomNavRoute() {
     String uri = Modular.args.uri.path;
 
-    if(uri=="/home/"){
+    if (uri == "/home/") {
       setIndexBottomNav(0, setRoute: true);
     }
 
-    if(uri.contains('search')){
+    if (uri.contains('search')) {
       setIndexBottomNav(1);
-    }
-    else if(uri.contains('favorites')){
+    } else if (uri.contains('favorites')) {
       setIndexBottomNav(2);
-    }
-    else if(uri.contains('profile')){
+    } else if (uri.contains('profile')) {
       setIndexBottomNav(3);
-    }
-    else{
+    } else {
       setIndexBottomNav(0);
     }
   }
@@ -118,5 +115,13 @@ abstract class HomeStoreBase with Store {
   @action
   changeShowBottomNav() {
     showBottomNav = !showBottomNav;
+  }
+
+  @observable
+  bool isLoading = false;
+
+  @action
+  changeLoadingState() {
+    isLoading = !isLoading;
   }
 }

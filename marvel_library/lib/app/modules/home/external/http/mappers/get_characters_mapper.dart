@@ -8,6 +8,7 @@ class GetCharactersMapper {
   static ResponseGetCharacters getResponseFromMap(Map object) {
     return ResponseGetCharacters(
         total: object['total'],
+        offset: object['offset'],
         characters: getCharactersFromResultList(object['results']));
   }
 

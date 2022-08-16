@@ -57,6 +57,22 @@ mixin _$HomeStore on HomeStoreBase, Store {
     });
   }
 
+  late final _$isLoadingAtom =
+      Atom(name: 'HomeStoreBase.isLoading', context: context);
+
+  @override
+  bool get isLoading {
+    _$isLoadingAtom.reportRead();
+    return super.isLoading;
+  }
+
+  @override
+  set isLoading(bool value) {
+    _$isLoadingAtom.reportWrite(value, super.isLoading, () {
+      super.isLoading = value;
+    });
+  }
+
   late final _$logoutGoogleAsyncAction =
       AsyncAction('HomeStoreBase.logoutGoogle', context: context);
 
@@ -110,11 +126,23 @@ mixin _$HomeStore on HomeStoreBase, Store {
   }
 
   @override
+  dynamic changeLoadingState() {
+    final _$actionInfo = _$HomeStoreBaseActionController.startAction(
+        name: 'HomeStoreBase.changeLoadingState');
+    try {
+      return super.changeLoadingState();
+    } finally {
+      _$HomeStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 googleUser: ${googleUser},
 indexBottomNav: ${indexBottomNav},
-showBottomNav: ${showBottomNav}
+showBottomNav: ${showBottomNav},
+isLoading: ${isLoading}
     ''';
   }
 }

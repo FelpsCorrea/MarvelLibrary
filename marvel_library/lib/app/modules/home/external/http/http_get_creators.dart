@@ -32,14 +32,13 @@ class HttpGetCreators implements GetCreatorsDatasource {
       }
 
       var response = await http.get(Uri.parse(url), headers: {
-        'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json'
       }).timeout(Duration(seconds: 60));
       if (response.statusCode == HttpConstants.REQUEST_SUCCESS) {
         return GetCreatorsMapper.getResponseFromMap(
             jsonDecode(response.body)["data"]);
       } else {
-        throw GetCreatorsException("Erro ao buscar os criadores");
+        throw GetCreatorsException(jsonDecode(response.body)["message"]);
       }
     } catch (e) {
       throw GetCreatorsException(e.toString());
