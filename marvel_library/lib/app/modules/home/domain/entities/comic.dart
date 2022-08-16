@@ -1,4 +1,5 @@
 import 'package:marvel_library/app/modules/home/domain/entities/character.dart';
+import 'package:marvel_library/app/modules/home/domain/entities/creator.dart';
 import 'package:marvel_library/app/modules/home/domain/entities/marvel_image.dart';
 import 'package:marvel_library/app/modules/home/domain/entities/serie_summary.dart';
 
@@ -11,6 +12,7 @@ class Comic {
   int? pageCount;
   Serie? serie;
   List<Character>? characterList;
+  List<Creator>? creatorsList;
   List<MarvelImage>? gallery;
   bool favorited;
   int favoritedCount;
@@ -23,6 +25,7 @@ class Comic {
       this.pageCount,
       this.serie,
       this.characterList,
+      this.creatorsList,
       this.gallery,
       this.favorited = false,
       this.favoritedCount = 0});

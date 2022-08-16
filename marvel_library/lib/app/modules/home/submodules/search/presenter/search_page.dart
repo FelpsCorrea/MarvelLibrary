@@ -17,7 +17,9 @@ class SearchPageState extends State<SearchPage> {
   @override
   void initState() {
     super.initState();
+    store.changeLoading(withTimer: true);
     store.searchComics();
+    store.changeLoading();
   }
 
   @override

@@ -23,6 +23,10 @@ class SearchTextFieldWidgetState extends State<SearchTextFieldWidget> {
           borderRadius: BorderRadius.circular(8),
           color: MarvelTheme.hyperDarkGray),
       child: TextField(
+        style: GoogleFonts.notoSans(
+            fontSize: 16,
+            fontWeight: FontWeight.w400,
+            color: MarvelTheme.neutralHighLight),
         controller: store.searchTextController,
         onTap: store.changeSearchTextFieldIsSelected,
         cursorColor: MarvelTheme.neutralHighDark,
@@ -43,8 +47,8 @@ class SearchTextFieldWidgetState extends State<SearchTextFieldWidget> {
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
                 color: store.searchTextFieldIsSelected
-                    ? MarvelTheme.neutralLowDark
-                    : MarvelTheme.neutralHighDarker),
+                    ? MarvelTheme.neutralHighDarker
+                    : MarvelTheme.neutralLowExtra),
             prefixIcon: const Icon(
               FeatherIcons.search,
               size: 16,

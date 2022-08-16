@@ -62,10 +62,28 @@ abstract class _SearchStoreBase with Store {
 
   // Para decidir qual tipo de busca será feito
   @action
-  search() {}
+  search() {
+    if (selectedFilterOption == "HQs") {
+      searchComics();
+    } else if (selectedFilterOption == "Personagens") {
+      searchCharacters();
+    } else {
+      searchCreators();
+    }
+  }
 
   // Para decidir qual função de searchMore será chamada
-  searchMore() {}
+  searchMore() {
+    changeLoading(withTimer: true);
+    if (selectedFilterOption == "HQs") {
+      searchMoreComics();
+    } else if (selectedFilterOption == "Personagens") {
+      searchMoreCharacters();
+    } else {
+      searchMoreCreators();
+    }
+    changeLoading();
+  }
 
   /**              --          */
 
@@ -125,25 +143,21 @@ abstract class _SearchStoreBase with Store {
   // Para buscar as HQs
   @action
   searchComics() async {
-    changeLoading();
     final result = await getComicsUsecase(ParamsGetComics(
         titleStartsWith: searchTextController.text != ""
             ? searchTextController.text
             : null));
-    result.fold((l) => {genericDialog(l.message), changeLoading()},
-        (r) => {setComics(r)});
+    result.fold((l) => {genericDialog(l.message)}, (r) => {setComics(r)});
   }
 
   // Para buscar mais HQs (Caso tenha) -> Paginação
   @action
   searchMoreComics() async {
-    changeLoading();
     final result = await getComicsUsecase(ParamsGetComics(
         titleStartsWith:
             searchTextController.text != "" ? searchTextController.text : null,
         offset: offsetComics));
-    result.fold(
-        (l) => {genericDialog("Erro ao buscar as HQs"), changeLoading()},
+    result.fold((l) => {genericDialog("Erro ao buscar as HQs")},
         (r) => {setComics(r, clear: false)});
   }
 
@@ -156,11 +170,29 @@ abstract class _SearchStoreBase with Store {
       comicsList.clear();
     }
     comicsList.addAll(response.comics);
-
-    changeLoading();
   }
 
-  changeLoading() {
+  // Função que retorna caso o card da hq seja o ultimo da listagem
+  bool isTheLastComic(int index) {
+    if (index == comicsList.length - 1 && comicsList.length == totalComics) {
+      return true;
+    }
+    return false;
+  }
+
+  // Função que retorna caso deva ser exibido o botão de carregar mais
+  bool showSearchMoreComicsButton(int index) {
+    if (index == comicsList.length - 1 && comicsList.length < totalComics) {
+      return true;
+    }
+    return false;
+  }
+
+  // Função que alterna mostrar loading ou não
+  changeLoading({bool withTimer = false}) async {
+    if (withTimer) {
+      await Future.delayed(Duration(seconds: 2));
+    }
     Modular.get<HomeStore>().changeLoadingState();
   }
 
@@ -174,7 +206,7 @@ abstract class _SearchStoreBase with Store {
             onPressed: () {
               Navigator.pop(context);
             },
-            child: Text(
+            child: const Text(
               'OK',
               style: TextStyle(color: Colors.blue),
             ),

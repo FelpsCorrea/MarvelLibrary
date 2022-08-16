@@ -18,18 +18,13 @@ class SmallSearchPageState extends State<SmallSearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          SearchSection(),
-          Container(
-            height: MediaQuery.of(context).size.height,
-            child: Observer(builder: (_) {
-              return store.currentSection;
-            }),
-          )
-        ],
-      ),
+    return Column(
+      children: [
+        const SearchSection(),
+        Expanded(child: Observer(builder: (_) {
+          return store.currentSection;
+        }))
+      ],
     );
   }
 }

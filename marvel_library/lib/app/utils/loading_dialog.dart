@@ -13,7 +13,11 @@ class LoadingDialogState extends State<LoadingDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return Image.network(
-        "https://mir-s3-cdn-cf.behance.net/project_modules/disp/da734b28921021.55d95297d71f4.gif");
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(8),
+      child: Image.network(
+          "https://mir-s3-cdn-cf.behance.net/project_modules/disp/da734b28921021.55d95297d71f4.gif",
+          scale: 3),
+    );
   }
 }
