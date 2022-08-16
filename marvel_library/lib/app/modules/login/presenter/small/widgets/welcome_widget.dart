@@ -14,7 +14,9 @@ class WelcomeWidgetState extends State<WelcomeWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [Image.asset('assets/images/marvel_logo.png', scale: 2)],
+      children: [
+        Image.asset('assets/images/marvel_logo_legenda.png', scale: 2.5)
+      ],
     );
   }
 }

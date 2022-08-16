@@ -34,7 +34,7 @@ class LoginGoogleButtonState extends State<LoginGoogleButton> {
                 fontWeight: FontWeight.w600,
                 fontSize: 16),
           ),
-          Image.asset('assets/images/google_icon.png', width: 20, height: 20)
+          Image.asset('assets/icons/google_icon.png', width: 20, height: 20)
         ]),
       ),
     );

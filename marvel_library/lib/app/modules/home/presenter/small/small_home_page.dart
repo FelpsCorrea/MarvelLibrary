@@ -1,20 +1,20 @@
-import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:marvel_library/app/modules/home/presenter/home_store.dart';
 import 'package:marvel_library/app/modules/home/presenter/small/widgets/bottom_navigation_bar_widget.dart';
-import 'package:marvel_library/app/themes/marvel_theme.dart';
 
 class SmallHomePage extends StatefulWidget {
   final String title;
   const SmallHomePage({Key? key, this.title = "Home"}) : super(key: key);
 
   @override
-  _SmallHomePageState createState() => _SmallHomePageState();
+  SmallHomePageState createState() => SmallHomePageState();
 }
 
-class _SmallHomePageState extends ModularState<SmallHomePage, HomeStore> {
+class SmallHomePageState extends State<SmallHomePage> {
+  final HomeStore store = Modular.get();
+
   @override
   void initState() {
     //store.loginGoogle();
