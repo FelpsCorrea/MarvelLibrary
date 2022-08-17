@@ -4,8 +4,10 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:marvel_library/app/constants/config_constants.dart';
 import 'package:marvel_library/app/modules/home/domain/entities/character.dart';
 import 'package:marvel_library/app/modules/home/domain/entities/comic.dart';
+import 'package:marvel_library/app/modules/home/domain/entities/creator.dart';
 import 'package:marvel_library/app/modules/home/domain/repositories/get_characters_repository.dart';
 import 'package:marvel_library/app/modules/home/domain/repositories/get_comics_repository.dart';
+import 'package:marvel_library/app/modules/home/domain/repositories/get_creators_repository.dart';
 import 'package:marvel_library/app/modules/home/domain/usecases/get_characters_usecase.dart';
 import 'package:marvel_library/app/modules/home/domain/usecases/get_comics_usecase.dart';
 import 'package:marvel_library/app/modules/home/domain/usecases/get_creators_usecase.dart';
@@ -113,7 +115,16 @@ abstract class HomeStoreBase with Store {
   }
 
   /** FUNÇÕES SOBRE QUAL DETALHE ABRIR */
-  int currentIndexDetail = 0;
+
+  @action
+  setCurrentIndexDetail(int value) {
+    print("ATUALIZOU O INDEX PARA $value");
+    currentDetail = detailPages[value];
+    print(currentDetail);
+  }
+
+  @observable
+  Widget currentDetail = SmallComicDetailPage();
 
   List<Widget> detailPages = [
     const SmallComicDetailPage(),
@@ -125,23 +136,27 @@ abstract class HomeStoreBase with Store {
   @observable
   Comic? currentComic;
 
-  getComicById(int id) async {
-    currentIndexDetail = 0;
+  @action
+  getComicById(int id, {bool alreadyInDetail = false}) async {
+    setCurrentIndexDetail(0);
 
     final result = await getComicsUsecase(ParamsGetComics(comicId: id));
-    result.fold(
-        (l) => genericDialog("Ops! Não encontramos sua HQ"), setCurrentComic);
+    result.fold((l) => genericDialog("Ops! Não encontramos sua HQ"), (r) {
+      setCurrentComic(r, alreadyInDetail);
+    });
   }
 
   @action
-  setCurrentComic(ResponseGetComics value) {
+  setCurrentComic(ResponseGetComics value, bool alreadyInDetail) {
     if (value.comics.isEmpty) {
       genericDialog("Ops! Não encontramos sua HQ");
     } else {
-      print("DEU BUENA");
       currentComic = value.comics[0];
       getCharactersByComicId(currentComic!.id);
-      changeShowBottomNav();
+
+      if (!alreadyInDetail) {
+        changeShowBottomNav();
+      }
     }
   }
 
@@ -153,6 +168,81 @@ abstract class HomeStoreBase with Store {
     });
   }
 
+  /** FUNÇÕES DETALHE PERSONAGENS */
+  @observable
+  Character? currentCharacter;
+
+  getCharacterById(int id, {alreadyInDetail = false}) async {
+    setCurrentIndexDetail(1);
+    final result =
+        await getCharactersUsecase(ParamsGetCharacters(characterId: id));
+    result.fold((l) => genericDialog("Ops! Não encontramos seu personagem"),
+        (r) {
+      setCurrentCharacter(r, alreadyInDetail);
+    });
+  }
+
+  @action
+  setCurrentCharacter(ResponseGetCharacters value, bool alreadyInDetail) {
+    if (value.characters.isEmpty) {
+      genericDialog("Ops! Não encontramos seu personagem");
+    } else {
+      currentCharacter = value.characters[0];
+      getComicsByCharacterId(currentCharacter!.id);
+      if (!alreadyInDetail) {
+        changeShowBottomNav();
+      }
+    }
+  }
+
+  getComicsByCharacterId(int id) async {
+    final result = await getComicsUsecase(ParamsGetComics(characters: [id]));
+    result.fold((l) {}, (r) {
+      setComicsList(r);
+    });
+  }
+
+  /** FUNÇÕES DETALHE CRIADOR */
+  @observable
+  Creator? currentCreator;
+
+  getCreatorById(int id) async {
+    setCurrentIndexDetail(2);
+
+    final result = await getCreatorsUsecase(ParamsGetCreators(creatorId: id));
+    result.fold((l) => genericDialog("Ops! Não encontramos seu personagem"),
+        setCurrentCreator);
+  }
+
+  @action
+  setCurrentCreator(ResponseGetCreators value) {
+    if (value.creators.isEmpty) {
+      genericDialog("Ops! Não encontramos sua HQ");
+    } else {
+      currentCreator = value.creators[0];
+      getComicsByCreatorId(currentCreator!.id);
+      changeShowBottomNav();
+    }
+  }
+
+  getComicsByCreatorId(int id) async {
+    final result = await getComicsUsecase(ParamsGetComics(creators: [id]));
+    result.fold((l) {}, (r) {
+      setComicsList(r);
+    });
+  }
+
+  // Auxiliares para caso necessário HQs
+  @observable
+  var comicsList = ObservableList<Comic>();
+
+  @action
+  setComicsList(ResponseGetComics value) {
+    comicsList.clear();
+    comicsList.addAll(value.comics);
+  }
+
+  // Auxiliares para caso necessário personagens
   @observable
   var characterList = ObservableList<Character>();
 

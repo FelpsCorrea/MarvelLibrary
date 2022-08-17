@@ -87,9 +87,13 @@ abstract class _StartStoreBase with Store {
     Modular.get<HomeStore>().setIndexBottomNav(index);
   }
 
-  // Função para abrir o detalhe do quadrinho
   // Função para buscar o detalhe da HQ
   getComicById(int id) {
     Modular.get<HomeStore>().getComicById(id);
+  }
+
+  // Função para buscar o detalhe do personagem
+  getCharacterById(int id) {
+    Modular.get<HomeStore>().getCharacterById(id);
   }
 }

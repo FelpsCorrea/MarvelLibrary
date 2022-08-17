@@ -5,16 +5,16 @@ import 'package:marvel_library/app/modules/home/presenter/home_store.dart';
 import 'package:marvel_library/app/themes/marvel_theme.dart';
 import 'package:marvel_library/app/themes/opera_theme.dart';
 
-class ComicDetailTitleWidget extends StatefulWidget {
+class DetailTitleWidget extends StatefulWidget {
   final String title;
 
-  const ComicDetailTitleWidget({super.key, required this.title});
+  const DetailTitleWidget({super.key, required this.title});
 
   @override
-  ComicDetailTitleWidgetState createState() => ComicDetailTitleWidgetState();
+  DetailTitleWidgetState createState() => DetailTitleWidgetState();
 }
 
-class ComicDetailTitleWidgetState extends State<ComicDetailTitleWidget> {
+class DetailTitleWidgetState extends State<DetailTitleWidget> {
   final HomeStore store = Modular.get();
 
   @override

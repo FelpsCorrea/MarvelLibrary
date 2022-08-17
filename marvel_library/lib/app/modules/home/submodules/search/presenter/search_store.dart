@@ -202,6 +202,14 @@ abstract class _SearchStoreBase with Store {
   }
 
   // Função para buscar o detalhe do Personagem
+  getCharacterById(int id) {
+    Modular.get<HomeStore>().getCharacterById(id);
+  }
+
+  // Função para buscar o detalhe do Criador
+  getCreatorById(int id) {
+    Modular.get<HomeStore>().getCreatorById(id);
+  }
 
   // Função para buscar o detalhe do Criador
 

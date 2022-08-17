@@ -9,7 +9,7 @@ import 'package:marvel_library/app/modules/home/presenter/small/detail/comic/sec
 import 'package:marvel_library/app/modules/home/presenter/small/detail/comic/sections/comic_info_section.dart';
 import 'package:marvel_library/app/modules/home/presenter/small/detail/comic/widgets/comic_detail_description.dart';
 import 'package:marvel_library/app/modules/home/presenter/small/detail/comic/widgets/comic_detail_thumb.dart';
-import 'package:marvel_library/app/modules/home/presenter/small/detail/comic/widgets/comic_detail_title_widget.dart';
+import 'package:marvel_library/app/modules/home/presenter/small/detail/detail_title.dart';
 import 'package:marvel_library/app/themes/marvel_theme.dart';
 
 class SmallComicDetailPage extends StatefulWidget {
@@ -58,7 +58,7 @@ class SmallComicDetailPageState extends State<SmallComicDetailPage> {
                                         color: MarvelTheme.white, size: 32)),
                               ),
                               const SizedBox(height: 24),
-                              ComicDetailTitleWidget(
+                              DetailTitleWidget(
                                   title: store.currentComic!.title),
                               const SizedBox(height: 16),
                               Text(

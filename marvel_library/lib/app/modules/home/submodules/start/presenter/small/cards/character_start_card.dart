@@ -20,6 +20,9 @@ class CharacterStartCardState extends State<CharacterStartCard> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      onTap: () {
+        store.getCharacterById(widget.character.id);
+      },
       child: Container(
         width: 100,
         height: 100,

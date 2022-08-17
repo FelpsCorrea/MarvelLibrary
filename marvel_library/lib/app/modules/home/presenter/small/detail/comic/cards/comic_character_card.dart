@@ -23,36 +23,41 @@ class ComicCharactersCardWidgetState extends State<ComicCharactersCardWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 170,
-      width: 120,
-      margin: EdgeInsets.only(left: 8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            width: 100,
-            height: 100,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              image: DecorationImage(
-                  image: NetworkImage(
-                      "${widget.character.thumbnail!.path}.${widget.character.thumbnail!.extension}"),
-                  fit: BoxFit.fill),
+    return InkWell(
+      onTap: () {
+        store.getCharacterById(widget.character.id, alreadyInDetail: true);
+      },
+      child: Container(
+        height: 170,
+        width: 120,
+        margin: EdgeInsets.only(left: 8),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              width: 100,
+              height: 100,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                    image: NetworkImage(
+                        "${widget.character.thumbnail!.path}.${widget.character.thumbnail!.extension}"),
+                    fit: BoxFit.fill),
+              ),
             ),
-          ),
-          SizedBox(height: 8),
-          Text(
-            widget.character.name,
-            maxLines: 3,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.center,
-            style: GoogleFonts.cousine(
-                fontSize: 8,
-                fontWeight: FontWeight.w800,
-                color: MarvelTheme.neutralHighLight),
-          )
-        ],
+            SizedBox(height: 8),
+            Text(
+              widget.character.name,
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
+              style: GoogleFonts.cousine(
+                  fontSize: 8,
+                  fontWeight: FontWeight.w800,
+                  color: MarvelTheme.neutralHighLight),
+            )
+          ],
+        ),
       ),
     );
   }

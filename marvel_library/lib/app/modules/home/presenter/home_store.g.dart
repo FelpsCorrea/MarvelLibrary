@@ -73,6 +73,22 @@ mixin _$HomeStore on HomeStoreBase, Store {
     });
   }
 
+  late final _$currentDetailAtom =
+      Atom(name: 'HomeStoreBase.currentDetail', context: context);
+
+  @override
+  Widget get currentDetail {
+    _$currentDetailAtom.reportRead();
+    return super.currentDetail;
+  }
+
+  @override
+  set currentDetail(Widget value) {
+    _$currentDetailAtom.reportWrite(value, super.currentDetail, () {
+      super.currentDetail = value;
+    });
+  }
+
   late final _$currentComicAtom =
       Atom(name: 'HomeStoreBase.currentComic', context: context);
 
@@ -86,6 +102,54 @@ mixin _$HomeStore on HomeStoreBase, Store {
   set currentComic(Comic? value) {
     _$currentComicAtom.reportWrite(value, super.currentComic, () {
       super.currentComic = value;
+    });
+  }
+
+  late final _$currentCharacterAtom =
+      Atom(name: 'HomeStoreBase.currentCharacter', context: context);
+
+  @override
+  Character? get currentCharacter {
+    _$currentCharacterAtom.reportRead();
+    return super.currentCharacter;
+  }
+
+  @override
+  set currentCharacter(Character? value) {
+    _$currentCharacterAtom.reportWrite(value, super.currentCharacter, () {
+      super.currentCharacter = value;
+    });
+  }
+
+  late final _$currentCreatorAtom =
+      Atom(name: 'HomeStoreBase.currentCreator', context: context);
+
+  @override
+  Creator? get currentCreator {
+    _$currentCreatorAtom.reportRead();
+    return super.currentCreator;
+  }
+
+  @override
+  set currentCreator(Creator? value) {
+    _$currentCreatorAtom.reportWrite(value, super.currentCreator, () {
+      super.currentCreator = value;
+    });
+  }
+
+  late final _$comicsListAtom =
+      Atom(name: 'HomeStoreBase.comicsList', context: context);
+
+  @override
+  ObservableList<Comic> get comicsList {
+    _$comicsListAtom.reportRead();
+    return super.comicsList;
+  }
+
+  @override
+  set comicsList(ObservableList<Comic> value) {
+    _$comicsListAtom.reportWrite(value, super.comicsList, () {
+      super.comicsList = value;
     });
   }
 
@@ -137,6 +201,15 @@ mixin _$HomeStore on HomeStoreBase, Store {
     return _$loginGoogleAsyncAction.run(() => super.loginGoogle());
   }
 
+  late final _$getComicByIdAsyncAction =
+      AsyncAction('HomeStoreBase.getComicById', context: context);
+
+  @override
+  Future getComicById(int id, {bool alreadyInDetail = false}) {
+    return _$getComicByIdAsyncAction
+        .run(() => super.getComicById(id, alreadyInDetail: alreadyInDetail));
+  }
+
   late final _$HomeStoreBaseActionController =
       ActionController(name: 'HomeStoreBase', context: context);
 
@@ -185,11 +258,56 @@ mixin _$HomeStore on HomeStoreBase, Store {
   }
 
   @override
-  dynamic setCurrentComic(ResponseGetComics value) {
+  dynamic setCurrentIndexDetail(int value) {
+    final _$actionInfo = _$HomeStoreBaseActionController.startAction(
+        name: 'HomeStoreBase.setCurrentIndexDetail');
+    try {
+      return super.setCurrentIndexDetail(value);
+    } finally {
+      _$HomeStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setCurrentComic(ResponseGetComics value, bool alreadyInDetail) {
     final _$actionInfo = _$HomeStoreBaseActionController.startAction(
         name: 'HomeStoreBase.setCurrentComic');
     try {
-      return super.setCurrentComic(value);
+      return super.setCurrentComic(value, alreadyInDetail);
+    } finally {
+      _$HomeStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setCurrentCharacter(
+      ResponseGetCharacters value, bool alreadyInDetail) {
+    final _$actionInfo = _$HomeStoreBaseActionController.startAction(
+        name: 'HomeStoreBase.setCurrentCharacter');
+    try {
+      return super.setCurrentCharacter(value, alreadyInDetail);
+    } finally {
+      _$HomeStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setCurrentCreator(ResponseGetCreators value) {
+    final _$actionInfo = _$HomeStoreBaseActionController.startAction(
+        name: 'HomeStoreBase.setCurrentCreator');
+    try {
+      return super.setCurrentCreator(value);
+    } finally {
+      _$HomeStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setComicsList(ResponseGetComics value) {
+    final _$actionInfo = _$HomeStoreBaseActionController.startAction(
+        name: 'HomeStoreBase.setComicsList');
+    try {
+      return super.setComicsList(value);
     } finally {
       _$HomeStoreBaseActionController.endAction(_$actionInfo);
     }
@@ -224,7 +342,11 @@ googleUser: ${googleUser},
 indexBottomNav: ${indexBottomNav},
 showBottomNav: ${showBottomNav},
 isLoading: ${isLoading},
+currentDetail: ${currentDetail},
 currentComic: ${currentComic},
+currentCharacter: ${currentCharacter},
+currentCreator: ${currentCreator},
+comicsList: ${comicsList},
 characterList: ${characterList},
 carouselDetailIndex: ${carouselDetailIndex}
     ''';
