@@ -96,4 +96,9 @@ abstract class _StartStoreBase with Store {
   getCharacterById(int id) {
     Modular.get<HomeStore>().getCharacterById(id);
   }
+
+  // Função para buscar o detalhe do criador
+  getCreatorById(int id) {
+    Modular.get<HomeStore>().getCreatorById(id);
+  }
 }

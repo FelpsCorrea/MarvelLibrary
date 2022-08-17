@@ -19,16 +19,21 @@ class CreatorStartCardState extends State<CreatorStartCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 100,
-      height: 100,
-      margin: const EdgeInsets.only(left: 8),
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        image: DecorationImage(
-            image: NetworkImage(
-                "${widget.creator.thumbnail!.path}.${widget.creator.thumbnail!.extension}"),
-            fit: BoxFit.fill),
+    return InkWell(
+      onTap: () {
+        store.getCreatorById(widget.creator.id);
+      },
+      child: Container(
+        width: 100,
+        height: 100,
+        margin: const EdgeInsets.only(left: 8),
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          image: DecorationImage(
+              image: NetworkImage(
+                  "${widget.creator.thumbnail!.path}.${widget.creator.thumbnail!.extension}"),
+              fit: BoxFit.fill),
+        ),
       ),
     );
   }
