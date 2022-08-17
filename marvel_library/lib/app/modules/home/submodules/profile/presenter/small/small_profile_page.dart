@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:marvel_library/app/modules/home/submodules/profile/presenter/profile_store.dart';
 import 'package:marvel_library/app/modules/home/submodules/profile/presenter/small/buttons/logout_button.dart';
+import 'package:marvel_library/app/modules/home/submodules/profile/presenter/small/widgets/profile_name_widget.dart';
 import 'package:marvel_library/app/modules/home/submodules/profile/presenter/small/widgets/profile_thumb_widget.dart';
 
 class SmallProfilePage extends StatefulWidget {
@@ -22,7 +23,13 @@ class SmallProfilePageState extends State<SmallProfilePage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: [ProfileThumbWidget(), LogoutButton()],
+        children: [
+          ProfileThumbWidget(),
+          SizedBox(height: 16),
+          ProfileNameWidget(),
+          SizedBox(height: 32),
+          LogoutButton()
+        ],
       ),
     );
   }

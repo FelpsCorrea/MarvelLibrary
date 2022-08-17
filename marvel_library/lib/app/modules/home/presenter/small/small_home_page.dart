@@ -19,7 +19,6 @@ class SmallHomePageState extends State<SmallHomePage> {
 
   @override
   void initState() {
-    //store.loginGoogle();
     store.setIndexByBottomNavRoute();
     super.initState();
   }

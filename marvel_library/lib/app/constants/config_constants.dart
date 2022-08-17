@@ -2,7 +2,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class ConfigConstants {
   static String googleClientId =
-      '588733118015-sesmt78iffpj0hma2ccjklvhga41dbhj.apps.googleusercontent.com';
+      '588733118015-0l0hmofks7qo77pkn3us6l428dio1v5u.apps.googleusercontent.com';
 
   static GoogleSignIn googleSignIn = GoogleSignIn(
     clientId: ConfigConstants.googleClientId,

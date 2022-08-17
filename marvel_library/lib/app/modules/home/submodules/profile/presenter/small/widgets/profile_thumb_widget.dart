@@ -20,13 +20,13 @@ class ProfileThumbWidgetState extends State<ProfileThumbWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 100,
-      height: 100,
+      width: 120,
+      height: 120,
       margin: const EdgeInsets.only(left: 8),
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         image: DecorationImage(
-            image: NetworkImage(store.googleUser!.photoUrl ??
+            image: NetworkImage(store.googleUser?.photoUrl ??
                 "http://polosolucoes.com.br/wp-content/uploads/2020/06/avatar.png"),
             fit: BoxFit.fill),
       ),
