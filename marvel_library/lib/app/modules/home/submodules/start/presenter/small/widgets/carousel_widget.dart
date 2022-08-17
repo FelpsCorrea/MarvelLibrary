@@ -46,7 +46,7 @@ class CarouselWidgetState extends State<CarouselWidget> {
                     ),
                     child: ClipRRect(
                         borderRadius: const BorderRadius.all(
-                          Radius.circular(24.0),
+                          Radius.circular(8.0),
                         ),
                         child: Image.asset(
                           item,
