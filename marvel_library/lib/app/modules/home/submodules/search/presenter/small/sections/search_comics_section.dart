@@ -28,12 +28,12 @@ class SearchComicsSectionState extends State<SearchComicsSection> {
             children: [
               Container(
                 margin: EdgeInsets.only(
-                    bottom: store.isTheLastComic(index) ? 100 : 16),
+                    bottom: store.isTheLastCard(index) ? 100 : 16),
                 child: Padding(
                     padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
                     child: SearchedComicCard(comic: store.comicsList[index])),
               ),
-              store.showSearchMoreComicsButton(index)
+              store.showSearchMoreButton(index)
                   ? const SearchMoreButton()
                   : Container()
             ],

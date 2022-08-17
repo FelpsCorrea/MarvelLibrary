@@ -20,7 +20,6 @@ class SearchPageState extends State<SearchPage> {
     super.initState();
     store.setSelectedFilterOption(widget.option);
     store.changeLoading(withTimer: true);
-    store.search();
     store.changeLoading();
   }
 

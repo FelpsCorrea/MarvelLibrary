@@ -3,7 +3,9 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:marvel_library/app/modules/home/domain/entities/character.dart';
 import 'package:marvel_library/app/modules/home/domain/entities/comic.dart';
 import 'package:marvel_library/app/modules/home/domain/entities/creator.dart';
+import 'package:marvel_library/app/modules/home/domain/repositories/get_characters_repository.dart';
 import 'package:marvel_library/app/modules/home/domain/repositories/get_comics_repository.dart';
+import 'package:marvel_library/app/modules/home/domain/repositories/get_creators_repository.dart';
 import 'package:marvel_library/app/modules/home/domain/usecases/get_characters_usecase.dart';
 import 'package:marvel_library/app/modules/home/domain/usecases/get_comics_usecase.dart';
 import 'package:marvel_library/app/modules/home/domain/usecases/get_creators_usecase.dart';
@@ -58,6 +60,7 @@ abstract class _SearchStoreBase with Store {
   setSelectedFilterOption(String value) {
     selectedFilterOption = value;
     currentSection = foundSectionList[value]!;
+    search();
   }
 
   // Para decidir qual tipo de busca será feito
@@ -100,11 +103,35 @@ abstract class _SearchStoreBase with Store {
 
   // Para buscar os criadores
   @action
-  searchCreators() {}
+  searchCreators() async {
+    final result = await getCreatorsUsecase(ParamsGetCreators(
+        nameStartsWith: searchTextController.text != ""
+            ? searchTextController.text
+            : null));
+    result.fold((l) => {genericDialog(l.message)}, (r) => {setCreators(r)});
+  }
 
   // Para buscar mais criadores (Caso tenha) -> Paginação
   @action
-  searchMoreCreators() {}
+  searchMoreCreators() async {
+    final result = await getCreatorsUsecase(ParamsGetCreators(
+        nameStartsWith:
+            searchTextController.text != "" ? searchTextController.text : null,
+        offset: offsetComics));
+    result.fold((l) => {genericDialog("Erro ao buscar os criadores")},
+        (r) => {setCreators(r, clear: false)});
+  }
+
+  @action
+  setCreators(ResponseGetCreators response, {bool clear = true}) {
+    totalCreators = response.total;
+    offsetCreators = response.offset + 1;
+
+    if (clear) {
+      creatorsList.clear();
+    }
+    creatorsList.addAll(response.creators);
+  }
 
   /**              --          */
 
@@ -120,12 +147,34 @@ abstract class _SearchStoreBase with Store {
   int offsetCharacters = 0;
 
   // Para buscar os personagens
-  @action
-  searchCharacters() {}
+  searchCharacters() async {
+    final result = await getCharactersUsecase(ParamsGetCharacters(
+        nameStartsWith: searchTextController.text != ""
+            ? searchTextController.text
+            : null));
+    result.fold((l) => {genericDialog(l.message)}, (r) => {setCharacters(r)});
+  }
 
   // Para buscar mais personagens (Caso tenha) -> Paginação
+  searchMoreCharacters() async {
+    final result = await getCharactersUsecase(ParamsGetCharacters(
+        nameStartsWith:
+            searchTextController.text != "" ? searchTextController.text : null,
+        offset: offsetComics));
+    result.fold((l) => {genericDialog("Erro ao buscar os personagens")},
+        (r) => {setCharacters(r, clear: false)});
+  }
+
   @action
-  searchMoreCharacters() {}
+  setCharacters(ResponseGetCharacters response, {bool clear = true}) {
+    totalCharacters = response.total;
+    offsetCharacters = response.offset + 1;
+
+    if (clear) {
+      charactersList.clear();
+    }
+    charactersList.addAll(response.characters);
+  }
 
   /**              --          */
 
@@ -141,7 +190,6 @@ abstract class _SearchStoreBase with Store {
   int offsetComics = 0;
 
   // Para buscar as HQs
-  @action
   searchComics() async {
     final result = await getComicsUsecase(ParamsGetComics(
         titleStartsWith: searchTextController.text != ""
@@ -151,7 +199,6 @@ abstract class _SearchStoreBase with Store {
   }
 
   // Para buscar mais HQs (Caso tenha) -> Paginação
-  @action
   searchMoreComics() async {
     final result = await getComicsUsecase(ParamsGetComics(
         titleStartsWith:
@@ -173,18 +220,48 @@ abstract class _SearchStoreBase with Store {
   }
 
   // Função que retorna caso o card da hq seja o ultimo da listagem
-  bool isTheLastComic(int index) {
-    if (index == comicsList.length - 1 && comicsList.length == totalComics) {
-      return true;
+  bool isTheLastCard(int index) {
+    if (selectedFilterOption == "HQs") {
+      if (index == comicsList.length - 1 && comicsList.length == totalComics) {
+        return true;
+      }
     }
+
+    if (selectedFilterOption == "Personagens") {
+      if (index == charactersList.length - 1 &&
+          charactersList.length == totalCharacters) {
+        return true;
+      }
+    } else {
+      if (index == creatorsList.length - 1 &&
+          creatorsList.length == totalCreators) {
+        return true;
+      }
+    }
+
     return false;
   }
 
   // Função que retorna caso deva ser exibido o botão de carregar mais
-  bool showSearchMoreComicsButton(int index) {
-    if (index == comicsList.length - 1 && comicsList.length < totalComics) {
-      return true;
+  bool showSearchMoreButton(int index) {
+    if (selectedFilterOption == "HQs") {
+      if (index == comicsList.length - 1 && comicsList.length < totalComics) {
+        return true;
+      }
     }
+
+    if (selectedFilterOption == "Personagens") {
+      if (index == charactersList.length - 1 &&
+          charactersList.length < totalCharacters) {
+        return true;
+      }
+    } else {
+      if (index == creatorsList.length - 1 &&
+          creatorsList.length < totalCreators) {
+        return true;
+      }
+    }
+
     return false;
   }
 

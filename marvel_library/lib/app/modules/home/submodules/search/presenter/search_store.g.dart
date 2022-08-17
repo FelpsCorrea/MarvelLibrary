@@ -220,20 +220,21 @@ mixin _$SearchStore on _SearchStoreBase, Store {
     });
   }
 
-  late final _$searchComicsAsyncAction =
-      AsyncAction('_SearchStoreBase.searchComics', context: context);
+  late final _$searchCreatorsAsyncAction =
+      AsyncAction('_SearchStoreBase.searchCreators', context: context);
 
   @override
-  Future searchComics() {
-    return _$searchComicsAsyncAction.run(() => super.searchComics());
+  Future searchCreators() {
+    return _$searchCreatorsAsyncAction.run(() => super.searchCreators());
   }
 
-  late final _$searchMoreComicsAsyncAction =
-      AsyncAction('_SearchStoreBase.searchMoreComics', context: context);
+  late final _$searchMoreCreatorsAsyncAction =
+      AsyncAction('_SearchStoreBase.searchMoreCreators', context: context);
 
   @override
-  Future searchMoreComics() {
-    return _$searchMoreComicsAsyncAction.run(() => super.searchMoreComics());
+  Future searchMoreCreators() {
+    return _$searchMoreCreatorsAsyncAction
+        .run(() => super.searchMoreCreators());
   }
 
   late final _$_SearchStoreBaseActionController =
@@ -273,44 +274,22 @@ mixin _$SearchStore on _SearchStoreBase, Store {
   }
 
   @override
-  dynamic searchCreators() {
+  dynamic setCreators(ResponseGetCreators response, {bool clear = true}) {
     final _$actionInfo = _$_SearchStoreBaseActionController.startAction(
-        name: '_SearchStoreBase.searchCreators');
+        name: '_SearchStoreBase.setCreators');
     try {
-      return super.searchCreators();
+      return super.setCreators(response, clear: clear);
     } finally {
       _$_SearchStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  dynamic searchMoreCreators() {
+  dynamic setCharacters(ResponseGetCharacters response, {bool clear = true}) {
     final _$actionInfo = _$_SearchStoreBaseActionController.startAction(
-        name: '_SearchStoreBase.searchMoreCreators');
+        name: '_SearchStoreBase.setCharacters');
     try {
-      return super.searchMoreCreators();
-    } finally {
-      _$_SearchStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic searchCharacters() {
-    final _$actionInfo = _$_SearchStoreBaseActionController.startAction(
-        name: '_SearchStoreBase.searchCharacters');
-    try {
-      return super.searchCharacters();
-    } finally {
-      _$_SearchStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic searchMoreCharacters() {
-    final _$actionInfo = _$_SearchStoreBaseActionController.startAction(
-        name: '_SearchStoreBase.searchMoreCharacters');
-    try {
-      return super.searchMoreCharacters();
+      return super.setCharacters(response, clear: clear);
     } finally {
       _$_SearchStoreBaseActionController.endAction(_$actionInfo);
     }
