@@ -1,15 +1,21 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:marvel_library/app/constants/config_constants.dart';
 import 'package:marvel_library/app/modules/home/domain/entities/character.dart';
 import 'package:marvel_library/app/modules/home/domain/entities/comic.dart';
+import 'package:marvel_library/app/modules/home/domain/repositories/get_characters_repository.dart';
+import 'package:marvel_library/app/modules/home/domain/repositories/get_comics_repository.dart';
 import 'package:marvel_library/app/modules/home/domain/usecases/get_characters_usecase.dart';
+import 'package:marvel_library/app/modules/home/domain/usecases/get_comics_usecase.dart';
+import 'package:marvel_library/app/modules/home/domain/usecases/get_creators_usecase.dart';
 import 'package:marvel_library/app/modules/home/presenter/small/detail/character/character_detail_page.dart';
+import 'package:marvel_library/app/modules/home/presenter/small/detail/comic/cards/comic_character_card.dart';
 import 'package:marvel_library/app/modules/home/presenter/small/detail/comic/comic_detail_page.dart';
 import 'package:marvel_library/app/modules/home/presenter/small/detail/creator/creator_detail_page.dart';
 import 'package:marvel_library/app/modules/login/domain/usecases/login_google_usecase.dart';
 import 'package:mobx/mobx.dart';
+import 'package:asuka/asuka.dart' as asuka;
 part 'home_store.g.dart';
 
 class HomeStore = HomeStoreBase with _$HomeStore;
@@ -17,7 +23,10 @@ class HomeStore = HomeStoreBase with _$HomeStore;
 abstract class HomeStoreBase with Store {
   final ILoginGoogleUsecase loginGoogleUsecase;
   final IGetCharactersUsecase getCharactersUsecase;
-  HomeStoreBase(this.loginGoogleUsecase, this.getCharactersUsecase);
+  final IGetCreatorsUsecase getCreatorsUsecase;
+  final IGetComicsUsecase getComicsUsecase;
+  HomeStoreBase(this.loginGoogleUsecase, this.getCharactersUsecase,
+      this.getComicsUsecase, this.getCreatorsUsecase);
 
   /**        FUNÇÕES SOBRE O LOGIN GOOGLE       */
 
@@ -115,11 +124,69 @@ abstract class HomeStoreBase with Store {
   @observable
   Comic? currentComic;
 
-  getComicById(int id) {
+  getComicById(int id) async {
     currentIndexDetail = 0;
-    changeShowBottomNav();
+
+    final result = await getComicsUsecase(ParamsGetComics(comicId: id));
+    result.fold(
+        (l) => genericDialog("Ops! Não encontramos sua HQ"), setCurrentComic);
+  }
+
+  @action
+  setCurrentComic(ResponseGetComics value) {
+    if (value.comics.isEmpty) {
+      genericDialog("Ops! Não encontramos sua HQ");
+    } else {
+      print("DEU BUENA");
+      currentComic = value.comics[0];
+      getCharactersByComicId(currentComic!.id);
+      changeShowBottomNav();
+    }
+  }
+
+  getCharactersByComicId(int id) async {
+    final result =
+        await getCharactersUsecase(ParamsGetCharacters(comics: [id]));
+    result.fold((l) {}, (r) {
+      setCharacterList(r);
+    });
   }
 
   @observable
-  var comicCharactersList = ObservableList<Character>();
+  var characterList = ObservableList<Character>();
+
+  @action
+  setCharacterList(ResponseGetCharacters value) {
+    characterList.clear();
+    characterList.addAll(value.characters);
+  }
+
+  // Funções do carrossel do detalhe
+  @observable
+  int carouselDetailIndex = 0;
+
+  @action
+  setCarouselDetailIndex(int value) {
+    carouselDetailIndex = value;
+  }
+
+  genericDialog(String message) {
+    asuka.showDialog(builder: (context) {
+      return AlertDialog(
+        title: Text('Aviso'),
+        content: Text(message),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text(
+              'OK',
+              style: TextStyle(color: Colors.blue),
+            ),
+          )
+        ],
+      );
+    });
+  }
 }

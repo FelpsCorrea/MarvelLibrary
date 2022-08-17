@@ -42,7 +42,7 @@ class HomeModule extends Module {
     Bind.lazySingleton((i) => GetCreatorsRepositoryImpl(i())),
     Bind.lazySingleton((i) => GetCreatorsUsecase(i())),
 
-    Bind.lazySingleton((i) => HomeStore(i(), i())),
+    Bind.lazySingleton((i) => HomeStore(i(), i(), i(), i())),
   ];
 
   @override

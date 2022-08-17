@@ -9,7 +9,9 @@ class MarvelTheme {
     24: Color(0xFF770000),
     40: Color(0xFF770000),
     64: Color(0xFF770000),
-    100: Color(0xFF730000),
+    100: Color(0xFF5f0b16),
+    120: Color(0xFF3f070f),
+    150: Color.fromARGB(255, 31, 2, 6)
   };
 
   ////// Neutral Colors

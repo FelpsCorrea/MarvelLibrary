@@ -89,19 +89,35 @@ mixin _$HomeStore on HomeStoreBase, Store {
     });
   }
 
-  late final _$comicCharactersListAtom =
-      Atom(name: 'HomeStoreBase.comicCharactersList', context: context);
+  late final _$characterListAtom =
+      Atom(name: 'HomeStoreBase.characterList', context: context);
 
   @override
-  ObservableList<Character> get comicCharactersList {
-    _$comicCharactersListAtom.reportRead();
-    return super.comicCharactersList;
+  ObservableList<Character> get characterList {
+    _$characterListAtom.reportRead();
+    return super.characterList;
   }
 
   @override
-  set comicCharactersList(ObservableList<Character> value) {
-    _$comicCharactersListAtom.reportWrite(value, super.comicCharactersList, () {
-      super.comicCharactersList = value;
+  set characterList(ObservableList<Character> value) {
+    _$characterListAtom.reportWrite(value, super.characterList, () {
+      super.characterList = value;
+    });
+  }
+
+  late final _$carouselDetailIndexAtom =
+      Atom(name: 'HomeStoreBase.carouselDetailIndex', context: context);
+
+  @override
+  int get carouselDetailIndex {
+    _$carouselDetailIndexAtom.reportRead();
+    return super.carouselDetailIndex;
+  }
+
+  @override
+  set carouselDetailIndex(int value) {
+    _$carouselDetailIndexAtom.reportWrite(value, super.carouselDetailIndex, () {
+      super.carouselDetailIndex = value;
     });
   }
 
@@ -169,6 +185,39 @@ mixin _$HomeStore on HomeStoreBase, Store {
   }
 
   @override
+  dynamic setCurrentComic(ResponseGetComics value) {
+    final _$actionInfo = _$HomeStoreBaseActionController.startAction(
+        name: 'HomeStoreBase.setCurrentComic');
+    try {
+      return super.setCurrentComic(value);
+    } finally {
+      _$HomeStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setCharacterList(ResponseGetCharacters value) {
+    final _$actionInfo = _$HomeStoreBaseActionController.startAction(
+        name: 'HomeStoreBase.setCharacterList');
+    try {
+      return super.setCharacterList(value);
+    } finally {
+      _$HomeStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setCarouselDetailIndex(int value) {
+    final _$actionInfo = _$HomeStoreBaseActionController.startAction(
+        name: 'HomeStoreBase.setCarouselDetailIndex');
+    try {
+      return super.setCarouselDetailIndex(value);
+    } finally {
+      _$HomeStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 googleUser: ${googleUser},
@@ -176,7 +225,8 @@ indexBottomNav: ${indexBottomNav},
 showBottomNav: ${showBottomNav},
 isLoading: ${isLoading},
 currentComic: ${currentComic},
-comicCharactersList: ${comicCharactersList}
+characterList: ${characterList},
+carouselDetailIndex: ${carouselDetailIndex}
     ''';
   }
 }
