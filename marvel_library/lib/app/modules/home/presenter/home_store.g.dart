@@ -73,6 +73,38 @@ mixin _$HomeStore on HomeStoreBase, Store {
     });
   }
 
+  late final _$currentComicAtom =
+      Atom(name: 'HomeStoreBase.currentComic', context: context);
+
+  @override
+  Comic? get currentComic {
+    _$currentComicAtom.reportRead();
+    return super.currentComic;
+  }
+
+  @override
+  set currentComic(Comic? value) {
+    _$currentComicAtom.reportWrite(value, super.currentComic, () {
+      super.currentComic = value;
+    });
+  }
+
+  late final _$comicCharactersListAtom =
+      Atom(name: 'HomeStoreBase.comicCharactersList', context: context);
+
+  @override
+  ObservableList<Character> get comicCharactersList {
+    _$comicCharactersListAtom.reportRead();
+    return super.comicCharactersList;
+  }
+
+  @override
+  set comicCharactersList(ObservableList<Character> value) {
+    _$comicCharactersListAtom.reportWrite(value, super.comicCharactersList, () {
+      super.comicCharactersList = value;
+    });
+  }
+
   late final _$logoutGoogleAsyncAction =
       AsyncAction('HomeStoreBase.logoutGoogle', context: context);
 
@@ -142,7 +174,9 @@ mixin _$HomeStore on HomeStoreBase, Store {
 googleUser: ${googleUser},
 indexBottomNav: ${indexBottomNav},
 showBottomNav: ${showBottomNav},
-isLoading: ${isLoading}
+isLoading: ${isLoading},
+currentComic: ${currentComic},
+comicCharactersList: ${comicCharactersList}
     ''';
   }
 }

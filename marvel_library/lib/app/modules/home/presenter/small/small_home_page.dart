@@ -47,7 +47,7 @@ class SmallHomePageState extends State<SmallHomePage> {
                           alignment: Alignment.bottomCenter,
                           child: BottomNavigationBarWidget(),
                         )
-                      : Container();
+                      : store.detailPages[store.currentIndexDetail];
                 })
               ],
             ),

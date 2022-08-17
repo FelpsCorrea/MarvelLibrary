@@ -12,8 +12,14 @@ class HttpGetComics implements GetComicsDatasource {
   @override
   Future<ResponseGetComics> getComics(ParamsGetComics params) async {
     try {
+      String startUrl = "${ConfigConstants.hostnameMarvel}/comics";
+
+      if (params.comicId != null) {
+        startUrl += "/${params.comicId}";
+      }
+
       String url =
-          '${ConfigConstants.hostnameMarvel}/comics?apikey=${ConfigConstants.APIKey}&hash=${ConfigConstants.APIHash}&ts=${ConfigConstants.ts}&limit=${params.limit}&offset=${params.offset}';
+          '$startUrl?apikey=${ConfigConstants.APIKey}&hash=${ConfigConstants.APIHash}&ts=${ConfigConstants.ts}&limit=${params.limit}&offset=${params.offset}';
       if (params.characters != null) {
         String charactersList = "";
         for (var id in params.characters!) {

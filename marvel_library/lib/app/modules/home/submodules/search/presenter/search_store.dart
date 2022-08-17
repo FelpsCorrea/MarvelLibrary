@@ -196,6 +196,15 @@ abstract class _SearchStoreBase with Store {
     Modular.get<HomeStore>().changeLoadingState();
   }
 
+  // Função para buscar o detalhe da HQ
+  getComicById(int id) {
+    Modular.get<HomeStore>().getComicById(id);
+  }
+
+  // Função para buscar o detalhe do Personagem
+
+  // Função para buscar o detalhe do Criador
+
   genericDialog(String message) {
     asuka.showDialog(builder: (context) {
       return AlertDialog(

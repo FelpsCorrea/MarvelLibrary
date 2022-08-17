@@ -5,8 +5,9 @@ import 'package:marvel_library/app/modules/home/submodules/search/presenter/smal
 import 'package:marvel_library/app/utils/tutorial_widget.dart';
 
 class SearchPage extends StatefulWidget {
-  final String title;
-  const SearchPage({Key? key, this.title = 'SearchPage'}) : super(key: key);
+  final String option;
+
+  const SearchPage({super.key, required this.option});
   @override
   SearchPageState createState() => SearchPageState();
 }
@@ -17,8 +18,9 @@ class SearchPageState extends State<SearchPage> {
   @override
   void initState() {
     super.initState();
+    store.setSelectedFilterOption(widget.option);
     store.changeLoading(withTimer: true);
-    store.searchComics();
+    store.search();
     store.changeLoading();
   }
 
@@ -26,9 +28,9 @@ class SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       if (constraints.maxWidth < 1080) {
-        return SmallSearchPage();
+        return const SmallSearchPage();
       } else {
-        return TutorialWidget();
+        return const TutorialWidget();
       }
     });
   }

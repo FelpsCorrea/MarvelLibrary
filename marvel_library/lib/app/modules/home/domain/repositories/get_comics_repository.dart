@@ -22,7 +22,7 @@ class ParamsGetComics {
       this.titleStartsWith,
       this.characters,
       this.creators,
-      this.orderBy,
+      this.orderBy = 'modified',
       this.limit = 10,
       this.offset = 0});
 }

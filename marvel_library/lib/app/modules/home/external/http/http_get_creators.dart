@@ -12,8 +12,15 @@ class HttpGetCreators implements GetCreatorsDatasource {
   @override
   Future<ResponseGetCreators> getCreators(ParamsGetCreators params) async {
     try {
+      String startUrl = "${ConfigConstants.hostnameMarvel}/creators";
+
+      if (params.creatorId != null) {
+        startUrl += "/${params.creatorId}";
+      }
+
       String url =
-          '${ConfigConstants.hostnameMarvel}/creators?apikey=${ConfigConstants.APIKey}&hash=${ConfigConstants.APIHash}&ts=${ConfigConstants.ts}&limit=${params.limit}&offset=${params.offset}';
+          '$startUrl?apikey=${ConfigConstants.APIKey}&hash=${ConfigConstants.APIHash}&ts=${ConfigConstants.ts}&limit=${params.limit}&offset=${params.offset}';
+
       if (params.comics != null) {
         String comicsList = "";
         for (var id in params.comics!) {

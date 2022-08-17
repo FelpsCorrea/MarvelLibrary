@@ -13,8 +13,15 @@ class HttpGetCharacters implements GetCharactersDatasource {
   Future<ResponseGetCharacters> getCharacters(
       ParamsGetCharacters params) async {
     try {
+      String startUrl = "${ConfigConstants.hostnameMarvel}/characters";
+
+      if (params.characterId != null) {
+        startUrl += "/${params.characterId}";
+      }
+
       String url =
-          '${ConfigConstants.hostnameMarvel}/characters?apikey=${ConfigConstants.APIKey}&hash=${ConfigConstants.APIHash}&ts=${ConfigConstants.ts}&limit=${params.limit}&offset=${params.offset}';
+          '$startUrl?apikey=${ConfigConstants.APIKey}&hash=${ConfigConstants.APIHash}&ts=${ConfigConstants.ts}&limit=${params.limit}&offset=${params.offset}';
+
       if (params.comics != null) {
         String comicsList = "";
         for (var id in params.comics!) {
