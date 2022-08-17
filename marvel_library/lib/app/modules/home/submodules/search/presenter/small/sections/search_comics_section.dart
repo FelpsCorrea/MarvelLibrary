@@ -3,7 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:marvel_library/app/modules/home/submodules/search/presenter/search_store.dart';
 import 'package:marvel_library/app/modules/home/submodules/search/presenter/small/cards/searched_comic_card_widget.dart';
-import 'package:marvel_library/app/modules/home/submodules/search/presenter/small/widgets/search_more_widget.dart';
+import 'package:marvel_library/app/modules/home/submodules/search/presenter/small/buttons/search_more_button.dart';
 
 class SearchComicsSection extends StatefulWidget {
   final String title;
@@ -34,7 +34,7 @@ class SearchComicsSectionState extends State<SearchComicsSection> {
                     child: SearchedComicCard(comic: store.comicsList[index])),
               ),
               store.showSearchMoreComicsButton(index)
-                  ? const SearchMoreWidget()
+                  ? const SearchMoreButton()
                   : Container()
             ],
           );

@@ -4,19 +4,18 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:marvel_library/app/modules/home/submodules/search/presenter/search_store.dart';
 import 'package:marvel_library/app/themes/marvel_theme.dart';
 
-class SearchMoreWidget extends StatefulWidget {
+class SearchMoreButton extends StatefulWidget {
   final String title;
-  const SearchMoreWidget({Key? key, this.title = 'SearchMoreWidget'})
+  const SearchMoreButton({Key? key, this.title = 'SearchMoreButton'})
       : super(key: key);
   @override
-  SearchMoreWidgetState createState() => SearchMoreWidgetState();
+  SearchMoreButtonState createState() => SearchMoreButtonState();
 }
 
-class SearchMoreWidgetState extends State<SearchMoreWidget> {
+class SearchMoreButtonState extends State<SearchMoreButton> {
   final SearchStore store = Modular.get();
   @override
   void initState() {
-    print("CARREGOU O SEARCH MOREE");
     super.initState();
   }
 

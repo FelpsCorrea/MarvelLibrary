@@ -37,6 +37,7 @@ abstract class HomeStoreBase with Store {
   logoutGoogle() async {
     ConfigConstants.googleSignIn.disconnect();
     googleUser = null;
+    Modular.to.navigate('/');
   }
 
   @action
