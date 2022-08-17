@@ -34,7 +34,7 @@ class SearchModule extends Module {
 
   @override
   final List<ModularRoute> routes = [
-    ChildRoute('/',
+    ChildRoute('/filtered',
         child: (_, args) =>
             SearchPage(option: args.queryParams['option'] ?? "HQs")),
   ];

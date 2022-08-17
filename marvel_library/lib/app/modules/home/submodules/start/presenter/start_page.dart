@@ -15,6 +15,14 @@ class StartPageState extends State<StartPage> {
   final StartStore store = Modular.get();
 
   @override
+  void initState() {
+    store.getComics();
+    store.getCharacters();
+    store.getCreators();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       if (constraints.maxWidth < 1080) {

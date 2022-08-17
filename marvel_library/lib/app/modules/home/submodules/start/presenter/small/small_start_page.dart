@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:marvel_library/app/modules/home/submodules/start/presenter/small/sections/characters_start_section.dart';
+import 'package:marvel_library/app/modules/home/submodules/start/presenter/small/sections/comics_start_section.dart';
+import 'package:marvel_library/app/modules/home/submodules/start/presenter/small/sections/creators_start_section.dart';
 import 'package:marvel_library/app/modules/home/submodules/start/presenter/small/widgets/carousel_widget.dart';
 import 'package:marvel_library/app/modules/home/submodules/start/presenter/start_store.dart';
-import 'package:marvel_library/app/themes/marvel_theme.dart';
-import 'package:marvel_library/app/themes/opera_theme.dart';
 
 class SmallStartPage extends StatefulWidget {
   final String title;
@@ -19,8 +20,21 @@ class SmallStartPageState extends State<SmallStartPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: MarvelTheme.hyperDarkGray,
-      child: CarouselWidget(),
+      height: MediaQuery.of(context).size.height,
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            CarouselWidget(),
+            SizedBox(height: 32),
+            CharactersStartSection(),
+            SizedBox(height: 24),
+            ComicsStartSection(),
+            SizedBox(height: 24),
+            CreatorsStartSection(),
+            SizedBox(height: 100),
+          ],
+        ),
+      ),
     );
   }
 }

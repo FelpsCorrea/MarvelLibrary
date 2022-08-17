@@ -85,7 +85,7 @@ abstract class HomeStoreBase with Store {
     if (indexBottomNav == 0) {
       Modular.to.navigate('/home/start/');
     } else if (indexBottomNav == 1) {
-      Modular.to.navigate('/home/search/');
+      Modular.to.navigate('/home/search/filtered?option=HQs');
     } else if (indexBottomNav == 2) {
       Modular.to.navigate('/home/favorites/');
     } else {
