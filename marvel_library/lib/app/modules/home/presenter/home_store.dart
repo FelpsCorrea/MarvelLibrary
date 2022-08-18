@@ -110,7 +110,10 @@ abstract class HomeStoreBase with Store {
   bool isLoading = false;
 
   @action
-  changeLoadingState() {
+  changeLoadingState({bool withTimer = false}) async {
+    if (withTimer) {
+      await Future.delayed(Duration(seconds: 2));
+    }
     isLoading = !isLoading;
   }
 
@@ -118,9 +121,8 @@ abstract class HomeStoreBase with Store {
 
   @action
   setCurrentIndexDetail(int value) {
-    print("ATUALIZOU O INDEX PARA $value");
+    changeLoadingState();
     currentDetail = detailPages[value];
-    print(currentDetail);
   }
 
   @observable
@@ -158,6 +160,7 @@ abstract class HomeStoreBase with Store {
         changeShowBottomNav();
       }
     }
+    changeLoadingState(withTimer: true);
   }
 
   getCharactersByComicId(int id) async {
@@ -193,6 +196,7 @@ abstract class HomeStoreBase with Store {
         changeShowBottomNav();
       }
     }
+    changeLoadingState(withTimer: true);
   }
 
   getComicsByCharacterId(int id) async {
@@ -223,6 +227,7 @@ abstract class HomeStoreBase with Store {
       getComicsByCreatorId(currentCreator!.id);
       changeShowBottomNav();
     }
+    changeLoadingState(withTimer: true);
   }
 
   getComicsByCreatorId(int id) async {

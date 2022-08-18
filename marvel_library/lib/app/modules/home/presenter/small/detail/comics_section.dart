@@ -33,17 +33,57 @@ class ComicsSectionState extends State<ComicsSection> {
           ),
         ),
         Container(
-          height: 170,
           width: MediaQuery.of(context).size.width,
           padding: const EdgeInsets.symmetric(vertical: 16),
           child: Observer(builder: (_) {
-            return ListView.builder(
-              controller: ScrollController(),
-              itemCount: store.comicsList.length,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return ComicCard(comic: store.comicsList[index]);
-              },
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ...store.comicsList.map((element) {
+                  int index = store.comicsList.indexOf(element);
+
+                  // Retorna 2 cards por vez (exceto os dois últimos ou o último, dependendo se o tamanho da lista é par ou impar)
+                  if (index % 2 == 0 &&
+                      index > 0 &&
+                      store.comicsList.length > 1) {
+                    return Container(
+                      margin: EdgeInsets.only(top: 24),
+                      child: Row(
+                        children: [
+                          ComicCard(comic: store.comicsList[index - 2]),
+                          ComicCard(comic: store.comicsList[index - 1])
+                        ],
+                      ),
+                    );
+                  }
+                  return Container();
+                }).toList(),
+                // Para retornar os dois últimos elementos caso a lista seja par
+                store.comicsList.isNotEmpty && store.comicsList.length % 2 == 0
+                    ? Container(
+                        margin: EdgeInsets.only(top: 24),
+                        child: Row(
+                          children: [
+                            ComicCard(
+                                comic: store
+                                    .comicsList[store.comicsList.length - 2]),
+                            ComicCard(
+                                comic: store
+                                    .comicsList[store.comicsList.length - 1])
+                          ],
+                        ),
+                      )
+                    : Container(),
+                // Para retornar o último elemento caso a lista seja impar
+                store.comicsList.isNotEmpty && store.comicsList.length % 2 != 0
+                    ? Container(
+                        margin: EdgeInsets.only(top: 24),
+                        child: ComicCard(
+                            comic:
+                                store.comicsList[store.comicsList.length - 1]),
+                      )
+                    : Container()
+              ],
             );
           }),
         ),

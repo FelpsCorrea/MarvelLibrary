@@ -201,6 +201,15 @@ mixin _$HomeStore on HomeStoreBase, Store {
     return _$loginGoogleAsyncAction.run(() => super.loginGoogle());
   }
 
+  late final _$changeLoadingStateAsyncAction =
+      AsyncAction('HomeStoreBase.changeLoadingState', context: context);
+
+  @override
+  Future changeLoadingState({bool withTimer = false}) {
+    return _$changeLoadingStateAsyncAction
+        .run(() => super.changeLoadingState(withTimer: withTimer));
+  }
+
   late final _$getComicByIdAsyncAction =
       AsyncAction('HomeStoreBase.getComicById', context: context);
 
@@ -241,17 +250,6 @@ mixin _$HomeStore on HomeStoreBase, Store {
         name: 'HomeStoreBase.changeShowBottomNav');
     try {
       return super.changeShowBottomNav();
-    } finally {
-      _$HomeStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic changeLoadingState() {
-    final _$actionInfo = _$HomeStoreBaseActionController.startAction(
-        name: 'HomeStoreBase.changeLoadingState');
-    try {
-      return super.changeLoadingState();
     } finally {
       _$HomeStoreBaseActionController.endAction(_$actionInfo);
     }

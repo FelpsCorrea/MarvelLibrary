@@ -26,13 +26,13 @@ class ComicCardState extends State<ComicCard> {
         store.getComicById(widget.comic.id, alreadyInDetail: true);
       },
       child: Container(
-        height: 170,
-        width: 80,
+        height: 200,
+        width: 170, // Proporção do A4
         child: Column(
           children: [
             Container(
-              height: 100,
-              width: 100,
+              height: 170,
+              width: 170 * 0.707,
               margin: const EdgeInsets.symmetric(horizontal: 4),
               child: Card(
                 elevation: 6.0,
@@ -53,11 +53,11 @@ class ComicCardState extends State<ComicCard> {
             Expanded(
               child: Text(
                 widget.comic.title,
-                maxLines: 3,
+                maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,
                 style: GoogleFonts.cousine(
-                    fontSize: 8,
+                    fontSize: 12,
                     fontWeight: FontWeight.w800,
                     color: MarvelTheme.neutralHighLight),
               ),
